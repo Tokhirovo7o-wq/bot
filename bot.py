@@ -120,3 +120,23 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+# 👤 INFO COMMAND
+async def info(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.message.reply_to_message.from_user if update.message.reply_to_message else update.effective_user
+
+    text = f"""
+👤 USER INFO
+
+🆔 ID: {user.id}
+👤 Name: {user.first_name}
+👤 Last name: {user.last_name}
+🔗 Username: @{user.username if user.username else 'yo‘q'}
+🤖 Botmi: {user.is_bot}
+
+⭐ Premium: {getattr(user, 'is_premium', 'unknown')}
+
+🌐 Profile: tg://user?id={user.id}
+"""
+
+    await update.message.reply_text(text)    
